@@ -14,5 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+Route::get('/join', function (){
+    return view('auth.register');
+});
+Route::get('/about', function (){
+    return view('about');
+});
+Route::get('/contact', function (){
+    return view('contact');
+});
+Route::domain('blog.' . env('APP_URL'))->group(function (){
+    Route::get('/', function (){
+        return view('blog');
+    });
 });

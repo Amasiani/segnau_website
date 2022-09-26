@@ -7,20 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" type="text/css" href="{%static 'css/style.css'%}">
+    <!--<link rel="stylesheet" type="text/css" href="{%static 'css/style.css'%}">-->
     <title>SEG-NAU - @yield('title')</title>
   </head>
   <body id="top">
     <div class="">
      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/"><img src="#"></a>
+        <a class="navbar-brand" href="/"><img src="assets/images/seg-nau.jpg" alt="segnau_logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,9 +33,11 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ url('/about') }}">About</a>
             </li>
+            @unless (Auth::check())
             <li class="nav-item">
               <a class="nav-link" href=" {{ url('/join') }}">Join</a>
             </li>
+            @endunless
             <li class="nav-item">
               <a class="nav-link " href=" {{ url('/blog') }}">Blog</a>
             </li>
@@ -44,7 +46,7 @@
             </li>
             @if(Route::has('login'))
             <li class="nav-item">
-              <a class="nav-link " href=" {{ route('backend') }}">Database</a>
+              <a class="nav-link " href="#">Database</a>
             </li>
             @endif
           </ul>
@@ -93,9 +95,10 @@
           </div>
         </div>
     </div>
-    <script type="text/javascript" src="{%static 'js/main.js'%}"> </script>
+    <!--<script type="text/javascript" src="{%static 'js/main.js'%}"> </script>-->
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+   
   </body>
 </html>
