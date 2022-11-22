@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Joinus;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
-class JoinusController extends Controller
+class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class JoinusController extends Controller
      */
     public function index()
     {
-        //show the joinus registration form
-        return view('auth.register');
+        //
     }
 
     /**
@@ -25,7 +24,8 @@ class JoinusController extends Controller
      */
     public function create()
     {
-        //
+        //Register new member
+        return view('auth.register');
     }
 
     /**
@@ -36,16 +36,30 @@ class JoinusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //create new member
+        $request->validate([
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'email' => 'required|unique:member,email',
+            'affilate' => 'required|string',
+            'segid' => 'required|numeric',
+            'DOB' => 'required|date',
+        ]);
+
+        Member::create($request->except(['_token']));
+
+        return redirect('auth.user.profile')->with('success', 'Welcome');
+
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Joinus  $joinus
+     * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function show(Joinus $joinus)
+    public function show(Member $member)
     {
         //
     }
@@ -53,10 +67,10 @@ class JoinusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Joinus  $joinus
+     * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function edit(Joinus $joinus)
+    public function edit(Member $member)
     {
         //
     }
@@ -65,10 +79,10 @@ class JoinusController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Joinus  $joinus
+     * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Joinus $joinus)
+    public function update(Request $request, Member $member)
     {
         //
     }
@@ -76,10 +90,10 @@ class JoinusController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Joinus  $joinus
+     * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Joinus $joinus)
+    public function destroy(Member $member)
     {
         //
     }

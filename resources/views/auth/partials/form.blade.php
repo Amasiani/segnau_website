@@ -10,7 +10,7 @@
 </div>
 <div class="mb-3">
     <label for="lastname" class="form-label">Last Name</label>
-    <input type="text" value="{{ old('lastname') }}" class="form-control @error('lastname') is-invalid @enderror" id="lastname" name="last_name" placeholder="Doe" autofocus>
+    <input type="text" value="{{ old('lastname') }}" class="form-control @error('lastname') is-invalid @enderror" id="lastname" name="lastname" placeholder="Doe" autofocus>
     @error('lastname')
     <span role="alert">
         <strong>{{ $message }}</strong>
@@ -19,7 +19,7 @@
 </div>
 <div class="mb-3">
     <label for="email" class="form-label">Email</label>
-    <input type="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" id="address" name="address" autocomplete="TRUE" placeholder="example@exampl.com" autofocus />
+    <input type="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" id="email" name="email" autocomplete="TRUE" placeholder="example@exampl.com" autofocus />
     @error('email')
     <span role="alert">
         <strong>{{ $message }}</strong>
@@ -45,9 +45,9 @@
     @enderror
 </div>
 <div class="mb-3">
-    <label for="dob" class="form-label">Birthday</label>
-    <input type="date" value="{{ old('dob') }}" class="form-control @error('dob') is-invalid @enderror" id="dob" name="dob" autocomplete="TRUE" placeholder="YYYY-MM-DD" autofocus />
-    @error('dob')
+    <label for="DOB" class="form-label">Birthday</label>
+    <input type="date" value="{{ old('DOB') }}" class="form-control @error('DOB') is-invalid @enderror" id="DOB" name="DOB" autocomplete="TRUE" placeholder="YYYY-MM-DD" autofocus />
+    @error('DOB')
     <span role="alert">
         <strong>{{ $message }}</strong>
     </span>

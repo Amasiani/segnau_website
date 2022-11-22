@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('joinus', function (Blueprint $table) {
+        Schema::create('member', function (Blueprint $table) {
             $table->id();
             $table->string('firstname', 50);
             $table->string('lastname', 50);
             $table->string('email')->unique();
             $table->integer('segid');
             $table->text('affilate');
-            $table->date('BOD');
+            $table->date('DOB');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('joinus');
+        Schema::dropIfExists('member');
     }
 };

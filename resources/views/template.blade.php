@@ -33,11 +33,11 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ url('/about') }}">About</a>
             </li>
-            @unless (Auth::check())
+            <!--@unless (Auth::check())-->
             <li class="nav-item">
-              <a class="nav-link" href=" {{ route('joinus.index') }}">Join</a>
+              <a class="nav-link" href="{{ route('members.create') }}">Join</a>
             </li>
-            @endunless
+            <!--@endunless-->
             <li class="nav-item">
               <a class="nav-link " href=" {{ url('/blog') }}">Blog</a>
             </li>

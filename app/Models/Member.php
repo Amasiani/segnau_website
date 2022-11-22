@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Joinus extends Model
+class Member extends Model
 {
     use HasFactory;
+
+    protected $table = 'member';
 
     protected $fillable = [
         'firstname',
@@ -15,6 +17,6 @@ class Joinus extends Model
         'email',
         'segid',
         'affilate',
-        'bod',
+        'DOB',
     ];
 }

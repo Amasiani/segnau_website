@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\JoinusController;
+use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,8 +23,10 @@ Route::get('/join', function (){
     return view('auth.register');
 });
 */
+
+//Rosource route for members
 Route::resources([
-    'joinus' => JoinusController::class,
+    'members' => MemberController::class,
 ]);
 Route::get('/about', function (){
     return view('about');
