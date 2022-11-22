@@ -35,7 +35,7 @@
             </li>
             @unless (Auth::check())
             <li class="nav-item">
-              <a class="nav-link" href=" {{ url('/join') }}">Join</a>
+              <a class="nav-link" href=" {{ route('joinus.index') }}">Join</a>
             </li>
             @endunless
             <li class="nav-item">

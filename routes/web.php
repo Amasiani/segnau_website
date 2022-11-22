@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JoinusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,14 @@ Route::get('/', function () {
     return view('home');
 });
 
+/*
 Route::get('/join', function (){
     return view('auth.register');
 });
+*/
+Route::resources([
+    'joinus' => JoinusController::class,
+]);
 Route::get('/about', function (){
     return view('about');
 });
