@@ -24,7 +24,6 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
@@ -35,18 +34,18 @@
             </li>
             <!--@unless (Auth::check())-->
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('members.create') }}">Join</a>
+              <a class="nav-link" href="{{ url('members/create') }}">Join</a>
             </li>
             <!--@endunless-->
             <li class="nav-item">
-              <a class="nav-link " href=" {{ url('/blog') }}">Blog</a>
+              <a class="nav-link " href=" {{ route('posts.index') }}">Blog</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link " href=" {{ url('/contact') }}">Contact</a>
+              <a class="nav-link " href=" {{ route('contact') }}">Contact</a>
             </li>
-            @if(Route::has('login'))
+            @if(Auth::User())
             <li class="nav-item">
-              <a class="nav-link " href="#">Database</a>
+              <a class="nav-link " href="{{ route('members.index') }}">Members</a>
             </li>
             @endif
           </ul>
@@ -56,15 +55,19 @@
           </form>
         </div>
       </nav>
-      @include('partials.alerts')
-      @yield('content')
+      <div class="container">
+        <section style="padding-top:60px">
+          @yield('content')
+          @include('partials.alerts') 
+         </section>
+      </div>
        <!-- Get intouch with us -->
         <div class="social-media">
           <div class="social-heading"><h3 class="text-center ">Get in Touch</h3></div>
           <div class="social-links">
             <ul>
               <li>
-                <a href=""><i class="ri-facebook-box-fill"></i></a>
+                <a href="#"><i class="ri-facebook-box-fill"></i></a>
               </li>
               <li>
                 <a href="https://twitter.com/eastsunetwork" target="blank"><i class="ri-twitter-fill"></i></a>
@@ -75,7 +78,6 @@
               <li>
                 <a href=""><i class="ri-mail-fill"></i></a>
               </li>
-
             </ul>
           </div>
         </div>
@@ -87,11 +89,9 @@
        <div class="Footer ">
           <div class="Text">
             <p>
-              
-              Website designed by Eastsun Network Ltd<br>
-              © 2022 | Privacy Policy 
+              Designed by Eastsun Network Ltd <span><a class="mytwitter" href="https://twitter.com/eastsunnetwork"><i class="ri-twitter-fill"></i></a></span><br>
+              &copy; 2019-<?php echo date('Y')?> | Privacy Policy 
             </p>
-            <p><span> <a class="mytwitter" href="https://twitter.com/eastsunnetwork"><i class="ri-twitter-fill"></i></a></span></p>
           </div>
         </div>
     </div>

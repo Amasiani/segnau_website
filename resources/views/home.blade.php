@@ -1,5 +1,5 @@
-@extends('template') 
-{%block title%}Home{%endblock%}
+@extends('template')
+@section('title', 'Home')
 @section('content')
       <div id="carouselExampleFade" class="carousel slide carousel-fade mt-5" data-ride="carousel">
           <div class="carousel-inner">

@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Actions\Fortify\CreateNewUser;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Laravel\Fortify\Fortify;
 
-class UserController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //list users
-        return view('auth.users.index');
+        //
     }
 
     /**
@@ -27,9 +23,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //create new user
-        
-
+        //
     }
 
     /**
@@ -40,14 +34,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //create new user
-        $appUser = New CreateNewUser();
-
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|unique:users,email',
-            'segid' => 'required|numeric|unique:users,segid',
-        ]);
+        //
     }
 
     /**

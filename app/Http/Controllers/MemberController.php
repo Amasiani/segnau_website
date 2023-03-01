@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -14,7 +15,8 @@ class MemberController extends Controller
      */
     public function index()
     {
-        //
+        //list members detaiils for Admin user
+        return view('members.index', ['members' => Member::all()]);
     }
 
     /**
@@ -25,7 +27,7 @@ class MemberController extends Controller
     public function create()
     {
         //Register new member
-        return view('auth.register');
+        return view('auth.create');
     }
 
     /**
@@ -34,23 +36,21 @@ class MemberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         //create new member
         $request->validate([
             'firstname' => 'required|string',
             'lastname' => 'required|string',
-            'email' => 'required|unique:member,email',
+            'email' => 'required|unique:members,email',
             'affilate' => 'required|string',
-            'segid' => 'required|numeric',
+            'segid' => 'required|numeric|unique:members',
             'DOB' => 'required|date',
         ]);
 
         Member::create($request->except(['_token']));
 
-        return redirect('auth.user.profile')->with('success', 'Welcome');
-
-
+        return redirect('/')->with('success', 'Welcome');
     }
 
     /**

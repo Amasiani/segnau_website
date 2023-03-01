@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/databaseview', function() {
+    return view('databaseview');
+});
 
 /*
 Route::get('/join', function (){
@@ -27,15 +34,13 @@ Route::get('/join', function (){
 //Rosource route for members
 Route::resources([
     'members' => MemberController::class,
+    'users' => UserController::class,
+    'posts' => PostController::class,
+    'comments' => CommentController::class,
 ]);
 Route::get('/about', function (){
     return view('about');
 });
-Route::get('/contact', function (){
-    return view('contact');
-});
-Route::domain('blog.' . env('APP_URL'))->group(function (){
-    Route::get('/', function (){
-        return view('blog');
-    });
-});
+
+Route::get('/emails.contact', [ContactFormController::class, 'Contactindex'])->name('contact');
+Route::post('/submit', [ContactFormController::class, 'sendContactMail'])->name('sendContact');

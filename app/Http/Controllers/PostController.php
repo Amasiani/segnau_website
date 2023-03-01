@@ -1,23 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Actions\Fortify\CreateNewUser;
-use App\Http\Controllers\Controller;
+use App\Models\Post;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Laravel\Fortify\Fortify;
+use Illuminate\Support\Facades\File;
 
-class UserController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        //list users
-        return view('auth.users.index');
+        //list trending post
+        return view('posts.index', ['posts' => Post::all()]);
     }
 
     /**
@@ -25,11 +26,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
-        //create new user
-        
-
+        //creates a new blog post
+        return view('posts.create');
     }
 
     /**
@@ -38,16 +38,29 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //create new user
-        $appUser = New CreateNewUser();
-
+        //stroring new post
+        
         $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|unique:users,email',
-            'segid' => 'required|numeric|unique:users,segid',
+            'title' => 'required|unique:posts',
+            'description' => 'required|max:255',
+            'image' => 'required|mimes:jpg,png,jpeg,bmp|max:3048',
         ]);
+
+        $image = $request->file('image');
+        $newImageName = time() . '-' . $request->title . '.' . $image->extension();
+       
+        $image->move(public_path('public/images/'), $newImageName);
+
+        Post::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'img' => $newImageName
+        ]);
+
+        return redirect('/posts')->with('success', 'welcome');
+
     }
 
     /**
@@ -58,7 +71,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        //llist blog post
+        return view();
     }
 
     /**
