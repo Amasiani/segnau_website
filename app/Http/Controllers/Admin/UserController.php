@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Laravel\Fortify\Fortify;
 
 class UserController extends Controller
 {
@@ -28,8 +28,7 @@ class UserController extends Controller
     public function create()
     {
         //create new user
-        
-
+        return view('auth.create');
     }
 
     /**
@@ -38,7 +37,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         //create new user
         $appUser = New CreateNewUser();
@@ -48,6 +47,10 @@ class UserController extends Controller
             'email' => 'required|unique:users,email',
             'segid' => 'required|numeric|unique:users,segid',
         ]);
+        $appUser->create($request->except(['_token']));
+        $user = auth()->user();
+        
+        return redirect('/')->with('success', 'Welcome ' . $user->name);
     }
 
     /**

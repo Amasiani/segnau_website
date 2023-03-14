@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MemberController extends Controller
 {
@@ -38,19 +40,51 @@ class MemberController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //create new member
-        $request->validate([
-            'firstname' => 'required|string',
-            'lastname' => 'required|string',
-            'email' => 'required|unique:members,email',
-            'affilate' => 'required|string',
-            'segid' => 'required|numeric|unique:members',
-            'DOB' => 'required|date',
-        ]);
-
-        Member::create($request->except(['_token']));
-
-        return redirect('/')->with('success', 'Welcome');
+         /**
+         * find user id from user table
+         * retieving member->segid from User() table one-to-one relationship. 
+        */
+        $user = auth()->user();
+        
+        $member = User::find($user->id)->member;
+        //dd($member->segid);
+        /**
+         * check if request has request->user-id
+         * if (DB::table('users')->where('id', 1)->exists()) {
+         *  // ...
+         * }
+        */
+        if (DB::table('members')->where('user_id', $user->id)->exists())
+        {
+        /**
+         * create new member
+         */
+        //dd($user->name);
+        return redirect('/')->with('success', 'You are already a member, with this following SEGID: ' . $member->segid);
+        }
+        else
+        {
+            $request->validate([
+                'firstname' => 'required|string',
+                'lastname' => 'required|string',
+                'email' => 'required|unique:members,email',
+                'affilate' => 'required|string',
+                'segid' => 'required|numeric|unique:members',
+                'DOB' => 'required|date',
+            ]);
+    
+            $member = Member::insert([
+                'firstname' => $request->input('firstname'),
+                'lastname' => $request->input('lastname'),
+                'email' => $request->input('email'),
+                'affilate' => $request->input('affilate'),
+                'segid' => $request->input('segid'),
+                'DOB' => $request->input('DOB'),
+                'user_id' => $user->id,
+            ]);     
+    
+            return redirect('/')->with('success', 'Welcome ');
+        }
     }
 
     /**

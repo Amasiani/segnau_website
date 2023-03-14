@@ -11,7 +11,7 @@
                   <img src="{{ asset('public/images/' . $post->img) }}" class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">{{$post->title}}</h5>
-                    <p class="card-text">{{Str::limit($post->detail, 20)}}...<a href="{%url 'blogdetail' post.slug%}">Read More</a></p>
+                    <p class="card-text">{{Str::limit($post->detail, 20)}}...<a href="{{ route('posts.show', $post->id) }}">Read More</a></p>
                   </div>
                   <div class="card-footer">
                     <small class="text-muted">{{$post->created_at}}</small>

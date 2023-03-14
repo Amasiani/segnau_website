@@ -32,14 +32,6 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ url('/about') }}">About</a>
             </li>
-            <!--@unless (Auth::check())-->
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url('members/create') }}">Join</a>
-            </li>
-            <!--@endunless-->
-            <li class="nav-item">
-              <a class="nav-link " href=" {{ route('posts.index') }}">Blog</a>
-            </li>
             <li class="nav-item">
               <a class="nav-link " href=" {{ route('contact') }}">Contact</a>
             </li>
@@ -47,7 +39,27 @@
             <li class="nav-item">
               <a class="nav-link " href="{{ route('members.index') }}">Members</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url('members/create') }}">Join</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href=" {{ route('posts.index') }}">Blog</a>
+            </li>
+            <li class="nav-item">
+            @if(Route::has('login'))
+            <a href="{{ route('logout') }}" class="nav-link text-sm text-gray-700 dark:text-gray-500 underline" style="text-decoration: none;" onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();"><p>Logout</p></a>
+            <form id='logout-form' action="{{ route('logout') }}" method=POST style="display:none" >
+              @csrf
+            </form>
             @endif
+            @else
+            <a href="{{ route('login') }}" class="nav-link text-sm text-gray-700 dark:text-gray-500 underline"><p>Login</p></a>
+            @if(Route::has('register'))
+            <a href="{{ route('register') }}" class="nav-link text-sm text-gray-700 dark:text-gray-500 underline"><p>Register</p></a>
+            @endif
+          @endif
+          </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search for post..." aria-label="Search">
@@ -57,8 +69,8 @@
       </nav>
       <div class="container">
         <section style="padding-top:60px">
+          @include('partials.alerts')
           @yield('content')
-          @include('partials.alerts') 
          </section>
       </div>
        <!-- Get intouch with us -->

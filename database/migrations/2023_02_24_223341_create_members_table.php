@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('segid');
             $table->text('affilate');
             $table->date('DOB');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

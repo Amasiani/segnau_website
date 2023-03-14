@@ -25,4 +25,9 @@ class Member extends Model
     {
         return $this->hasMany(Post::class)->withTimestamps();
     }
+
+    public function user()
+    {
+        return $this->hasOne(Member::class);
+    }
 }

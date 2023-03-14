@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -10,6 +11,12 @@ use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
+    
+    //Route middleware
+    public function __construct()
+    {
+        $this->middleware('isMember')->except('create');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +25,7 @@ class PostController extends Controller
     public function index(): View
     {
         //list trending post
-        return view('posts.index', ['posts' => Post::all()]);
+        return view('posts.index', ['posts' => Post::latest('created_at')]);
     }
 
     /**
@@ -41,25 +48,38 @@ class PostController extends Controller
     public function store(Request $request): RedirectResponse
     {
         //stroring new post
-        
-        $request->validate([
-            'title' => 'required|unique:posts',
-            'description' => 'required|max:255',
-            'image' => 'required|mimes:jpg,png,jpeg,bmp|max:3048',
-        ]);
+        $user = auth()->user();
+        $member = User::find($user->id)->member;
+        //dd($user->id);
 
-        $image = $request->file('image');
-        $newImageName = time() . '-' . $request->title . '.' . $image->extension();
-       
-        $image->move(public_path('public/images/'), $newImageName);
+            $request->validate([
+                'title' => 'required|unique:posts',
+                'description' => 'required|max:255',
+                'image' => 'required|mimes:jpg,png,jpeg,bmp|max:3048',
+            ]);
+    
+            $image = $request->file('image');
+            $newImageName = time() . '-' . $request->title . '.' . $image->extension();
+           
+            $image->move(public_path('public/images/'), $newImageName);
+            
+            //$post = Post::create([
+            //    'title' => $request->input('title'),
+            //    'description' => $request->input('description'),
+            //    'img' => $newImageName,
+            //]);
+            //$post = new Post($request->only(['title', 'description', 'img' => $newImageName]));
+            $post = Post::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'img' => $newImageName,
+                //'member_id' => $member_id,
+            ]);
+            dd($post);
+            $post->member()->associate($member);
+            //$post->save();
 
-        Post::create([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'img' => $newImageName
-        ]);
-
-        return redirect('/posts')->with('success', 'welcome');
+            return redirect('/posts')->with('success', 'Post created.');
 
     }
 
@@ -71,8 +91,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //llist blog post
-        return view();
+        //Blog post detail view
+        return view('posts.show', ['post' => Post::find($id)]);
     }
 
     /**

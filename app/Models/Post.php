@@ -26,6 +26,6 @@ class Post extends Model
 
     public function member(): BelongsTo
     {
-        return $this->belongsTo(Member::class)->withTimestamps();
+        return $this->belongsTo(Member::class);
     }
 }

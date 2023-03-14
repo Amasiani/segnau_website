@@ -3,17 +3,18 @@
 @section('content')
 <div class="blog-main-cont">
     <div class="blog-body-cont">
-        <div class="latest-posts"><h3 class="text-center">{{post.title|upper}}</h3><hr></div>
+        <div class="latest-posts"><h3 class="text-center">{{Str::upper($post->title)}}</h3><hr></div>
         <div class="blog-body row">
             <div class="col-md-6 col-sm-12 posts">
               <div class="card blog-card">
-                  <img src="{{post.image.url}}" class="card-img-top" alt="...">
+                  <img src="{{asset('images/'. $post->img)}}" class="card-img-top" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">{{post.title}}</h5>
-                    <p class="card-text">{{post.body}}</p>
+                    <h5 class="card-title">{{$post->title}}</h5>
+                    <p class="card-text">{{$post->description}}</p>
                   </div>
                   <div class="card-footer">
-                    <small class="text-muted">{{post.pub_on|time}}</small>
+                    <small class="text-muted">{{$post->created_at}}</small>
+                    <small class="text-muted">{{ $post->member->firstname }}</small>
                   </div>
               </div>
             </div>

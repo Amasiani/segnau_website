@@ -4,12 +4,12 @@
 	@foreach($members as $member)
 	<div class="databaseview">
 		<div class="card shadow">
-		  <h5 class="card-header">Name: {{ member->first_name }} {{ member->last_name }}</h5>
+		  <h5 class="card-header">Name: {{ $member->firstname }} {{ $member->lastname }}</h5>
 		  <div class="card-body">
-		    <p class="card-text">Emai: {{ member->email_address }}</p>
-		    <p class="card-text">School: {{ member->affilate_uni }}</p>
-		    <p class="card-text">SEG ID: {{ member->seg_id }}</p>
-		    <p class="card-text">DOB: {{ member->Date_of_Birth }}</p>
+		    <p class="card-text">Email: {{ $member->email }}</p>
+		    <p class="card-text">School: {{ $member->affilate }}</p>
+		    <p class="card-text">SEG ID: {{ $member->segid }}</p>
+		    <p class="card-text">DOB: {{ $member->DOB }}</p>
 		  </div>
 		</div>
 	</div>
